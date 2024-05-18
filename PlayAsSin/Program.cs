@@ -16,8 +16,6 @@ public class SinModelSwap : BaseUnityPlugin
     private GameObject senCorrupt;
     private GameObject justSen;
 
-    private bool swapDone = false;
-
     void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -25,7 +23,7 @@ public class SinModelSwap : BaseUnityPlugin
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "DaDemo" && !swapDone)
+        if (scene.name == "DaDemo")
         {
             Debug.Log("DaDemo scene loaded, starting model swap process.");
 
@@ -36,7 +34,7 @@ public class SinModelSwap : BaseUnityPlugin
                 if (senHumanbot != null && sinHumanbot != null && senUpperCape != null && senLowerCape != null && senNeck != null && senCorrupt != null)
                 {
                     PerformModelSwap();
-                    swapDone = true;
+                    // Increase player scale, remove this and justSen if you want small Sen
                     justSen.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
                 }
                 else
@@ -67,6 +65,8 @@ public class SinModelSwap : BaseUnityPlugin
         ReplaceMaterials(senHumanbot, sinHumanbot);
         ReplaceSharedMesh(senHumanbot, sinHumanbot);
         DisableSenCorrupt();
+        DisableUpperCape();
+        DisableLowerCape();
         CopyTopsMaterial();
         CopyAndPlaceTops();
         UpdateTrailsFXColor();
@@ -277,7 +277,6 @@ public class SinModelSwap : BaseUnityPlugin
                 Debug.LogError("Corrupt object not found in Sen's directory!");
             }
 
-            // Disable EyeActive GameObject
             Transform corruptTransform = senCorrupt.transform;
             Transform eyeActiveTransform = corruptTransform.Find("EyeActive");
             if (eyeActiveTransform != null)
@@ -293,6 +292,62 @@ public class SinModelSwap : BaseUnityPlugin
         catch (System.Exception ex)
         {
             Debug.LogError($"Error disabling Sen's Corrupt: {ex.Message}\n{ex.StackTrace}");
+        }
+    }
+
+    void DisableUpperCape()
+    {
+        try
+        {
+            if (senUpperCape != null)
+            {
+                Renderer upperCapeRenderer = senUpperCape.GetComponent<Renderer>();
+                if (upperCapeRenderer != null)
+                {
+                    upperCapeRenderer.enabled = false;
+                    Debug.Log("Hid Sen's UpperCape Renderer.");
+                }
+                else
+                {
+                    Debug.LogError("Renderer component not found on Sen's UpperCape object!");
+                }
+            }
+            else
+            {
+                Debug.LogError("UpperCape object not found in Sen's directory!");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Error disabling Sen's UpperCape: {ex.Message}\n{ex.StackTrace}");
+        }
+    }
+
+    void DisableLowerCape()
+    {
+        try
+        {
+            if (senLowerCape != null)
+            {
+                Renderer lowerCapeRenderer = senLowerCape.GetComponent<Renderer>();
+                if (lowerCapeRenderer != null)
+                {
+                    lowerCapeRenderer.enabled = false;
+                    Debug.Log("Hid Sen's LowerCape Renderer.");
+                }
+                else
+                {
+                    Debug.LogError("Renderer component not found on Sen's LowerCape object!");
+                }
+            }
+            else
+            {
+                Debug.LogError("LowerCape object not found in Sen's directory!");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Error disabling Sen's LowerCape: {ex.Message}\n{ex.StackTrace}");
         }
     }
 
