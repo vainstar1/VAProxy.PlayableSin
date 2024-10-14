@@ -23,7 +23,7 @@ public class SinModelSwap : BaseUnityPlugin
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "DaDemo")
+        if (scene.name == "BirdCage")
         {
             Debug.Log("DaDemo scene loaded, starting model swap process.");
 
@@ -51,13 +51,13 @@ public class SinModelSwap : BaseUnityPlugin
 
     void FindGameObjects()
     {
-        senHumanbot = GameObject.Find("S-105/Humanbot_A_Geom");
+        senHumanbot = GameObject.Find("S-105.1/Humanbot_A_Geom");
         sinHumanbot = GameObject.Find("World/Areas/ERI Grave/SkyBase/bossFight/S-104/Humanbot_A_Geom");
-        senUpperCape = GameObject.Find("S-105/ROOT/Hips/Spine/Spine1/UpperCape");
-        senLowerCape = GameObject.Find("S-105/ROOT/Hips/Spine/Spine1/UpperCape/LowerCape");
-        senNeck = GameObject.Find("S-105/ROOT/Hips/Spine/Spine1/Neck");
-        senCorrupt = GameObject.Find("S-105/ROOT/Hips/Spine/Spine1/Corrupt");
-        justSen = GameObject.Find("S-105");
+        senUpperCape = GameObject.Find("S-105.1/ROOT/Hips/Spine/Spine1/UpperCape");
+        senLowerCape = GameObject.Find("S-105.1/ROOT/Hips/Spine/Spine1/UpperCape/LowerCape");
+        senNeck = GameObject.Find("S-105.1/ROOT/Hips/Spine/Spine1/Neck");
+        senCorrupt = GameObject.Find("S-105.1/ROOT/Hips/Spine/Spine1/Corrupt");
+        justSen = GameObject.Find("S-105.1");
     }
 
     void PerformModelSwap()
@@ -83,7 +83,7 @@ public class SinModelSwap : BaseUnityPlugin
             GameObject newCorruptHead = Instantiate(sinCorruptHead);
             newCorruptHead.name = "Corrupt(Clone)";
 
-            Transform senSpine1 = GameObject.Find("S-105/ROOT/Hips/Spine/Spine1").transform;
+            Transform senSpine1 = GameObject.Find("S-105.1/ROOT/Hips/Spine/Spine1").transform;
             if (senSpine1 != null)
             {
                 newCorruptHead.transform.SetParent(senSpine1, false);
@@ -229,7 +229,7 @@ public class SinModelSwap : BaseUnityPlugin
                 GameObject newTops = Instantiate(sinTops);
                 newTops.name = "Tops_14(Clone)";
 
-                Transform senSpine1 = GameObject.Find("S-105/ROOT/Hips/Spine/Spine1").transform;
+                Transform senSpine1 = GameObject.Find("S-105.1/ROOT/Hips/Spine/Spine1").transform;
                 if (senSpine1 != null)
                 {
                     newTops.transform.SetParent(senSpine1, false);
