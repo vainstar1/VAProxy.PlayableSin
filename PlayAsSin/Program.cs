@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TrailsFX;
@@ -35,7 +35,7 @@ public class SinModelSwap : BaseUnityPlugin
                 {
                     PerformModelSwap();
                     // Increase player scale, remove this and justSen if you want small Sen
-                    justSen.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                    // justSen.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
                 }
                 else
                 {
@@ -358,8 +358,10 @@ public class SinModelSwap : BaseUnityPlugin
             var trailComponent = senHumanbot.GetComponent<TrailEffect>();
             if (trailComponent != null)
             {
-                trailComponent.color = new Color(1f, 0f, 0f, 0.8736f);
-                Debug.Log("Updated TrailsEffect color to (1, 0, 0, 0.8736).");
+                trailComponent.enabled = true; 
+                trailComponent.active = true; 
+                trailComponent.color = new Color(0f, 0f, 0f, 1f); 
+                Debug.Log("Updated TrailsEffect: enabled, _active set to true, and color set to (0, 0, 0, 1).");
             }
             else
             {
@@ -368,7 +370,7 @@ public class SinModelSwap : BaseUnityPlugin
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"Error updating TrailsEffect color: {ex.Message}\n{ex.StackTrace}");
+            Debug.LogError($"Error updating TrailsEffect: {ex.Message}\n{ex.StackTrace}");
         }
     }
 }
